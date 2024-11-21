@@ -4,6 +4,37 @@
     ViewData["Title"] = "Home page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h2 class="text-primary">Drinking Logs</h2>
+        </div>
+        <div class="col-6 text-end">
+            <button class="btn btn-primary" asp-page="/Create">Create Log</button>
+        </div>
+    </div>
+
+    <br /><br />
+
+    @* table for logs *@
+
+    <table class="table table-hover table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Quantity</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var log in Model.DrinkWaterLogs)
+            {
+                <tr>
+                    <td>@log.Date.ToString("dd-MM-yyyy")</td>
+                    <td>@log.Quantity</td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+
 </div>
