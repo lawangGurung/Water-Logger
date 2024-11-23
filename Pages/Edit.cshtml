@@ -1,0 +1,25 @@
+﻿@page
+@model Water_Logger.Pages.EditModel
+@{
+}
+
+<form method="post">
+    <div class="border mt-4 p-3">
+        <div class="row">
+            <h2 class="text-danger pl-3">Delete Water Log</h2>
+            <hr/>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="LoggingData.Date"></label>
+            <input asp-for="LoggingData.Date" class="form-control mt-2">
+            <span asp-validation-for="LoggingData.Date" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="LoggingData.Quantity"></label>
+            <input asp-for="LoggingData.Quantity" class="form-control mt-2">
+            <span asp-validation-for="LoggingData.Quantity" class="text-danger"></span>
+        </div>
+    </div>
+</form>
