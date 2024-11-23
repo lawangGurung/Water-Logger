@@ -37,5 +37,27 @@ namespace Water_Logger.Pages
 
             connection.Close();
         }
+
+        public IActionResult OnPost()
+        {
+            if(!ModelState.IsValid)
+            {
+                return Page();
+            }
+            using SqliteConnection connection = new SqliteConnection(_config.GetConnectionString("SQLiteConnection"));
+            connection.Open();
+            var sqlQuery = @$"UPDATE drinking_water
+                SET Date = '{LoggingData.Date.ToString("dd-MM-yyyy")}',
+                    Quantity = {LoggingData.Quantity}
+                WHERE Id = {LoggingData.Id}";
+            
+            var sqlCommand = connection.CreateCommand();
+            sqlCommand.CommandText = sqlQuery;
+
+            sqlCommand.ExecuteNonQuery();
+            connection.Close();
+
+            return RedirectToPage("/Index");
+        }
     }
 }

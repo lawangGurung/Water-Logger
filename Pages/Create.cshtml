@@ -3,7 +3,6 @@
 @{
     ViewData["Title"] = "Create Page";
 }
-
 <form method="post">
     <div class="border mt-4 p-3">
         <div class="row pb-3">
@@ -13,7 +12,7 @@
 
         <div class="mb-3">
             <label asp-for="@Model.LoggingData.Date"></label>
-            <input asp-for="@Model.LoggingData.Date" class="form-control mt-2">
+            <input asp-for="@Model.LoggingData.Date" class="form-control mt-2" type="Date">
             <span asp-validation-for="LoggingData.Date" class="text-danger"></span>
         </div>
 
@@ -24,6 +23,7 @@
         </div>
 
         <button type="submit" class="btn btn-primary" style="width:25%;">CREATE</button>
+        <a asp-page="/Index" class="btn btn-secondary" style="width:25%;">BACK TO INDEX</a>
     </div>
 
 </form>
