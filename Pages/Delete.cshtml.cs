@@ -51,6 +51,8 @@ namespace Water_Logger.Pages
 
             connection.Close();
 
+            TempData["success"] = "Log Deleted Successfully!!";
+
             return RedirectToPage("/Index");
         }
     }

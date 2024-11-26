@@ -34,6 +34,8 @@ namespace Water_Logger.Pages
             sqlCommand.ExecuteNonQuery();
             sqlConnection.Close();
 
+            TempData["success"] = "Log Created Successfully!!";
+
             return RedirectToPage("/Index");
         }
     }
