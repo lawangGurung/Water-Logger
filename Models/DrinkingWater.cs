@@ -12,5 +12,5 @@ public class DrinkingWater
 
     [Required]
     [Range(0, int.MaxValue, ErrorMessage = "Value of {0} cannot be negative.")]
-    public int Quantity { get; set; }
+    public double Quantity { get; set; }
 }
