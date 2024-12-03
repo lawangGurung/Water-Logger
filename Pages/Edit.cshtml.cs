@@ -1,7 +1,5 @@
-using System.Globalization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.Data.Sqlite;
 using Water_Logger.Data;
 using Water_Logger.Models;
 

@@ -14,6 +14,34 @@ public class Database
         _sqlConnection = config.GetConnectionString("SQLiteConnection") ?? "";
     }
 
+    public List<DrinkingWater> GetAll()
+    {
+        List<DrinkingWater> logList = new();
+        using var connection = new SqliteConnection(_sqlConnection);
+        connection.Open();
+        
+        var sqlCmd = connection.CreateCommand();
+        sqlCmd.CommandText = @"SELECT * FROM drinking_water";
+
+        using var reader = sqlCmd.ExecuteReader();
+        if(reader.HasRows)
+        {
+            while(reader.Read())
+            {
+                logList.Add(new DrinkingWater()
+                {
+                    Id = reader.GetInt32(0),
+                    Date = DateTime.ParseExact(reader.GetString(1), "dd-MM-yyyy", CultureInfo.InvariantCulture),
+                    Quantity = reader.GetDouble(2)
+                });
+            }
+        }
+
+        connection.Close();
+
+        return logList;
+    }
+
     public DrinkingWater Get(int id)
     {
 
@@ -22,10 +50,10 @@ public class Database
         connection.Open();
 
         var sqlCmd = connection.CreateCommand();
-        sqlCmd.CommandText = @$"SELECT * FROM drinking_Water
+        sqlCmd.CommandText = @$"SELECT * FROM drinking_water
             WHERE Id = {id}";
 
-        var reader = sqlCmd.ExecuteReader();
+        using var reader = sqlCmd.ExecuteReader();
         if (reader.HasRows)
         {
             while (reader.Read())
@@ -33,7 +61,7 @@ public class Database
 
                 log.Id = reader.GetInt32(0);
                 log.Date = DateTime.ParseExact(reader.GetString(1), "dd-MM-yyyy", CultureInfo.InvariantCulture);
-                log.Quantity = reader.GetInt32(2);
+                log.Quantity = reader.GetDouble(2);
 
             }
         }
@@ -68,6 +96,20 @@ public class Database
             WHERE Id = {drinkingWater.Id}";
 
         sqlCmd.ExecuteNonQuery();
+
+        connection.Close();
+    }
+
+    public void Delete(int id)
+    {
+        using var connection = new SqliteConnection(_sqlConnection);
+        connection.Open();
+
+        var sqlCmd = connection.CreateCommand();
+        sqlCmd.CommandText = @$"DELETE FROM drinking_water
+            WHERE Id = {id}";
+
+        sqlCmd.ExecuteNonQuery(); 
 
         connection.Close();
     }
